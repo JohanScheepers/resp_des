@@ -34,11 +34,17 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(device),
+            Text(
+              device,
+              style: const TextStyle(fontSize: 20),
+            ),
             const SizedBox(
               height: 10,
             ),
-            Text(deviceOritation),
+            Text(
+              deviceOritation,
+              style: const TextStyle(fontSize: 20),
+            ),
           ],
         )));
   }

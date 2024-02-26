@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resp_des/device/device.dart';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -10,10 +9,25 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final _deviceTypeNotifier = DeviceTypeOrientationNotifier();
+
+  @override
+  void initState() {
+    super.initState();
+    _deviceTypeNotifier.init();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _deviceTypeNotifier.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final device = deviceType.isTablet ? "Tablet" : "Phone";
-    final deviceOritation = deviceType.isLandscape ? "Landscape" : "Portrait";
+    final device = _deviceTypeNotifier.isTablet ? "Tablet" : "Phone";
+    final deviceOritation =
+        _deviceTypeNotifier.isLandscape ? "Landscape" : "Portrait";
     return Directionality(
         textDirection: TextDirection.ltr,
         child: Center(

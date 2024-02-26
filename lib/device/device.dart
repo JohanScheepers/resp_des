@@ -12,7 +12,7 @@ extension DeviceContext on BuildContext {
   DeviceTypeOrientationNotifier get deviceType => device.deviceType;
 }
 
-extension BackendState<T extends StatefulWidget> on State<T> {
+extension DevicestateState<T extends StatefulWidget> on State<T> {
 
   DeviceTypeOrientationNotifier get deviceType => context.deviceType;
 

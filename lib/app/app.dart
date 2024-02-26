@@ -35,11 +35,11 @@ class _ResponsiveDesignState extends State<ResponsiveDesign> {
     super.initState();
     _deviceTypeNotifier.init();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    SystemChrome.setPreferredOrientations(
-      _deviceTypeNotifier.isPhone //
-          ? [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]
-          : DeviceOrientation.values,
-    );
+    // SystemChrome.setPreferredOrientations(
+    //   _deviceTypeNotifier.isPhone //
+    //       ? [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]
+    //       : DeviceOrientation.values,
+    // );
     Intl.defaultLocale = PlatformDispatcher.instance.locale.toLanguageTag();
     _appLoader = _loadApp();
   }

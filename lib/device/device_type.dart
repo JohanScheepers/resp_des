@@ -3,8 +3,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/widgets.dart';
 import 'package:resp_des/device/device.dart';
 
-
-
 enum DeviceType {
   unknown,
   phone,
@@ -94,7 +92,7 @@ class DeviceTypeOrientationNotifier extends ChangeNotifier
         ? DeviceOrientation.portrait
         : DeviceOrientation.landscape;
     if (orientation != _state.orientation) {
-      debugPrint('Orientation changed to: $orientation');
+      debugPrint('device_type.dart => Orientation changed to: $orientation');
       _state = _state.copyWith(orientation: orientation);
       updated = true;
     }

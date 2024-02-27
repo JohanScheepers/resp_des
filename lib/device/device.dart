@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:resp_des/app/config.dart';
 import 'package:resp_des/device/device_type.dart';
 
-
-export 'package:resp_des/device/device_type.dart'
-    hide DeviceOrientation;
+export 'package:resp_des/device/device_type.dart' hide DeviceOrientation;
 
 extension DeviceContext on BuildContext {
   Device get device => DeviceInheritedWidget.of(this, listen: false);
@@ -13,32 +10,18 @@ extension DeviceContext on BuildContext {
 }
 
 extension DevicestateState<T extends StatefulWidget> on State<T> {
-
   DeviceTypeOrientationNotifier get deviceType => context.deviceType;
-
 }
 
 class Device {
   Device._(
-    this.config,
     this.deviceType,
   );
 
-  final AppConfig config;
   final DeviceTypeOrientationNotifier deviceType;
 
-  static Future<Device> init(
-      AppConfig config, DeviceTypeOrientationNotifier deviceType) async {
-    return Device._(
-      config,
-      deviceType,
-    );
-  }
-
-  String resolveApiUrl(String path) {
-    return Uri.parse(config.baseApiUrl) //
-        .replace(path: path)
-        .toString();
+  static Future<Device> init(DeviceTypeOrientationNotifier deviceType) async {
+    return Device._(deviceType);
   }
 }
 

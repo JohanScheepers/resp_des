@@ -14,9 +14,7 @@ extension DevicestateState<T extends StatefulWidget> on State<T> {
 }
 
 class Device {
-  Device._(
-    this.deviceType,
-  );
+  Device._(this.deviceType);
 
   final DeviceTypeOrientationNotifier deviceType;
 

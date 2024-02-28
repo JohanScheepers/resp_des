@@ -83,7 +83,7 @@ class DeviceTypeOrientationNotifier extends ChangeNotifier
         ? DeviceType.phone
         : DeviceType.tablet;
     if (deviceType != _state.deviceType) {
-      debugPrint('Device Type changed to: $deviceType');
+      debugPrint('debugPrint device_type.dart => Device Type changed to: $deviceType');
       _state = _state.copyWith(deviceType: deviceType);
       updated = true;
     }
@@ -92,7 +92,7 @@ class DeviceTypeOrientationNotifier extends ChangeNotifier
         ? DeviceOrientation.portrait
         : DeviceOrientation.landscape;
     if (orientation != _state.orientation) {
-      debugPrint('device_type.dart => Orientation changed to: $orientation');
+      debugPrint('debugPrint device_type.dart => Orientation changed to: $orientation');
       _state = _state.copyWith(orientation: orientation);
       updated = true;
     }

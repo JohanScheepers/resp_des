@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:resp_des/device/device.dart';
+import 'package:resp_des/screen/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,12 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Responsive Device Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Responsive Device'),
+      home: const MyHomePage(title: 'Flutter Responsive Device Demo'),
     );
   }
 }
@@ -34,6 +35,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _deviceTypeNotifier = DeviceTypeOrientationNotifier();
 
+  late Future<Device> _deviceLoader;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ? [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]
           : DeviceOrientation.values,
     );
+    _deviceLoader = _loadDevice();
+  }
+
+  Future<Device> _loadDevice() async {
+    final device = await Device.init(_deviceTypeNotifier);
+    return device;
   }
 
   @override
@@ -55,33 +64,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final device = _deviceTypeNotifier.isTablet ? "Tablet" : "Phone";
-    final deviceOritation =
-        _deviceTypeNotifier.isLandscape ? "Landscape" : "Portrait";
+    // final device = _deviceTypeNotifier.isTablet ? "Tablet" : "Phone";
+    // final deviceOritation =
+    //     _deviceTypeNotifier.isLandscape ? "Landscape" : "Portrait";
 
-    debugPrint('Orientation changed to: $device');
-    debugPrint('Orientation changed to: $deviceOritation');
+    // debugPrint('Orientation changed to: $device');
+    // debugPrint('Orientation changed to: $deviceOritation');
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Orientation changed to: $device',
-              style: const TextStyle(fontSize: 20.0),
-            ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            Text('Orientation changed to: $deviceOritation',
-                style: const TextStyle(fontSize: 20.0))
-          ],
-        ),
+      body: FutureBuilder(
+        future: _deviceLoader,
+        builder: (BuildContext context, AsyncSnapshot<Device> snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const CircularProgressIndicator();
+          } else {
+            return const MainScreen();
+          }
+        },
       ),
     );
   }
